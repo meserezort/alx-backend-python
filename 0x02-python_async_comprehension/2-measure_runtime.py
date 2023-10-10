@@ -1,25 +1,26 @@
 #!/usr/bin/env python3
-""" Measure times """
+"""
+    Measure runtime function
+"""
+
 import asyncio
 import time
-
 async_comprehension = __import__('1-async_comprehension').async_comprehension
 
 
 async def measure_runtime() -> float:
     """
-        measure time and execute in paralallel
+    will execute async_comprehension four times in parallel
+    using asyncio.gather, then return the total execution time
 
-        Args:
-            void
-
-        Return:
-            float random numbers
+    Return:
+    float - total execution time
     """
-    first_time = time.perf_counter()
-    tasks = [async_comprehension() for _ in range(4)]
-    await asyncio.gather(*tasks)
-    elapsed = time.perf_counter()
-
-    return (elapsed - first_time)
-
+    start = time.time()
+    await asyncio.gather(async_comprehension(),
+                         async_comprehension(),
+                         async_comprehension(),
+                         async_comprehension()
+                         )
+    end = time.time()
+    return (end - start)

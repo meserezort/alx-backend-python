@@ -18,4 +18,3 @@ async def async_comprehension() -> List[float]:
             float random numbers
     """
     return ([i async for i in async_generator()])
-
